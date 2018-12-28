@@ -23,3 +23,4 @@ Bayes包下面实现了基于Bayes文本分类的多项式模型算法
 >      System.err.println("eg. file:/home/admin/data/ auth/ china/ japan/")<br>
 >      System.err.println("eg. hdfs:/home/admin/data/ auth/ china/ japan/")<br>
 
+4. 编译脚本为build.sh，可以生成去除依赖的jar包
