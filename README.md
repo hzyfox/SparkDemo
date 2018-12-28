@@ -24,3 +24,5 @@ Bayes包下面实现了基于Bayes文本分类的多项式模型算法
 >      System.err.println("eg. hdfs:/home/admin/data/ auth/ china/ japan/")<br>
 
 4. 编译脚本为build.sh，可以生成去除依赖的jar包
+
+5. 要在Idea里面运行 请将compile-dep profile打开，否则idea运行时无法找到相关依赖，默认是provided-dep,运行时不包含依赖
