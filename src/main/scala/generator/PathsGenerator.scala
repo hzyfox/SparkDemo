@@ -26,39 +26,44 @@ object PathsGenerator {
     val genderPath = "person.gender"
     val occurProbabilityMap: Map[String, String] = Map(
       "0" -> "0.2",
-      "1" -> "0.8"
+      "1" -> "0.6",
+      "2" -> "0.2"
     )
 
     val occurProbabilityMap1: Map[String, String] = Map(
       "0" -> "0.1",
-      "2" -> "0.9"
+      "2" -> "0.4",
+      "3" -> "0.4",
+      "4" -> "0.1"
     )
 
     val occurProbabilityMap2: Map[String, String] = Map(
       "0" -> "0.1",
-      "3" -> "0.9"
+      "5" -> "0.2",
+      "3" -> "0.5",
+      "1" -> "0.2"
     )
 
     val randomBase = 10000
-    val startDay = "20190302"
-    val endDay = "20190309"
+    val startDay = "20190101"
+    val endDay = "20190131"
     val info0 = new ListBuffer[(String, Map[String, String], Int, String, String)]
     val info1 = new ListBuffer[(String, Map[String, String], Int, String, String)]
     val info2 = new ListBuffer[(String, Map[String, String], Int, String, String)]
 
-    for (i <- 0 until 70) {
+    for (i <- 0 until 250) {
       info0 += ((namePath + i, occurProbabilityMap, randomBase, startDay, endDay))
     }
-    for (i <- 0 until 20) {
+    for (i <- 0 until 200) {
       info1 += ((agePath + i, occurProbabilityMap1, randomBase, startDay, endDay))
     }
-    for (i <- 0 until 10) {
+    for (i <- 0 until 200) {
       info2 += ((genderPath + i, occurProbabilityMap2, randomBase, startDay, endDay))
     }
     val buffers = new ListBuffer[(String, Map[String, String], Int, String, String)]
     buffers ++= info0
     buffers ++= info1
     buffers ++= info2
-    generateSingleFile("verify.txt", buffers)
+    generateSingleFile("train-zhang.txt", buffers)
   }
 }
