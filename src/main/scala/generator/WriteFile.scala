@@ -23,7 +23,7 @@ object WriteFile {
     }
     writer.close()
   }
-
+  @deprecated
   def writeSeparateFile(fileName: String, container: ListBuffer[ListBuffer[(String, String, String)]], append: Boolean = false): Unit = {
     val stringBuilder = new StringBuilder
     for (buffer <- container) {
