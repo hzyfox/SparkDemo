@@ -8,6 +8,27 @@ import scala.util.control.Breaks
 
 
 object Helper {
+
+  def checkDay(startDay: String, endDay: String) = {
+    val dayFormat = new SimpleDateFormat("yyyyMMDD")
+    try {
+      val start = dayFormat.parse(startDay)
+      val end = dayFormat.parse(endDay)
+      val tempStart = Calendar.getInstance()
+      tempStart.setTime(start)
+      val tempEnd = Calendar.getInstance()
+      tempEnd.setTime(end)
+      if (tempEnd.before(tempStart)) {
+        System.err.println(s"endDay: ${endDay} can't before startDay: ${startDay}")
+        System.exit(-1)
+      }
+    } catch {
+      case e: Exception =>
+        e.printStackTrace()
+        System.exit(-1)
+    }
+  }
+
   def getBetweenDates(start: String, end: String): List[String] = {
     val startData = new SimpleDateFormat("yyyyMMdd").parse(start); //定义起始日期
     val endData = new SimpleDateFormat("yyyyMMdd").parse(end); //定义结束日期

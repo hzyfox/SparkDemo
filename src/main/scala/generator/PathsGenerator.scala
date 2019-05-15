@@ -75,8 +75,7 @@ object PathsGenerator {
     val agePathNum = Integer.valueOf(args(3))
     val genderPathNum = Integer.valueOf(args(4))
     val outputFile = args(5)
-    checkDay(startDay, endDay)
-
+    Helper.checkDay(startDay, endDay)
     val basePathGroup = Seq(namePath, agePath, genderPath)
     val basePathNum = Seq(namePathNum, agePathNum, genderPathNum)
     val occurProbabilityMaps = Seq(occurProbabilityMap, occurProbabilityMap1, occurProbabilityMap2)
@@ -84,23 +83,5 @@ object PathsGenerator {
     generateSingleFile(outputFile, path2Num, occurProbabilityMaps, startDay, endDay, randomBase = 10000)
   }
 
-  def checkDay(startDay: String, endDay: String) = {
-    val dayFormat = new SimpleDateFormat("yyyyMMDD")
-    try {
-      val start = dayFormat.parse(startDay)
-      val end = dayFormat.parse(endDay)
-      val tempStart = Calendar.getInstance()
-      tempStart.setTime(start)
-      val tempEnd = Calendar.getInstance()
-      tempEnd.setTime(end)
-      if (tempEnd.before(tempStart)) {
-        System.err.println(s"endDay: ${endDay} can't before startDay: ${startDay}")
-        System.exit(-1)
-      }
-    } catch {
-      case e: Exception =>
-        e.printStackTrace()
-        System.exit(-1)
-    }
-  }
+
 }
