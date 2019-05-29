@@ -26,9 +26,9 @@ object OccurProbability {
 }
 
 object BaseJsonPath {
-//  val namePath = "name"
-//  val agePath = "age"
-//  val genderPath = "person.gender"
+  //  val namePath = "name"
+  //  val agePath = "age"
+  //  val genderPath = "person.gender"
   val namePath = "id"
   val agePath = "name"
   val genderPath = "age"
@@ -44,7 +44,8 @@ object PathsGenerator {
                          occurProbabilityMaps: Seq[Map[String, String]],
                          startDay: String,
                          endDay: String,
-                         randomBase: Int = 10000): Unit = {
+                         randomBase: Int = 10000,
+                         verify: Boolean = false): Unit = {
     //我们每次最多1000条basepath
     val maxGenerate: Int = 1000
     for (i <- Path2Num.indices) {
@@ -53,18 +54,27 @@ object PathsGenerator {
       for (j <- 0 until num) {
         tmpBuffer += SinglePathGenerator.generator(basePath + j, occurProbabilityMaps(i), randomBase, startDay, endDay)
         if (j != 0 && j % maxGenerate == 0) {
-          WriteFile.writeSingleFile(fileName, tmpBuffer, append = true)
+          if (verify) {
+            WriteFile.writeSingleFileAndVerify(fileName, tmpBuffer, append = true, endDay = endDay)
+          } else {
+            WriteFile.writeSingleFile(fileName, tmpBuffer, append = true)
+          }
           tmpBuffer.clear()
         }
       }
       if (tmpBuffer.nonEmpty) {
-        WriteFile.writeSingleFile(fileName, tmpBuffer, append = true)
+        if (verify) {
+          WriteFile.writeSingleFileAndVerify(fileName, tmpBuffer, append = true, endDay = endDay)
+        } else {
+          WriteFile.writeSingleFile(fileName, tmpBuffer, append = true)
+        }
         tmpBuffer.clear()
       }
     }
   }
 
-  def main(args: Array[String]): Unit = {
+
+  def generateSet(args: Array[String], verify: Boolean = false) = {
     import BaseJsonPath._
     import OccurProbability._
 
@@ -84,7 +94,23 @@ object PathsGenerator {
     val basePathNum = Seq(namePathNum, agePathNum, genderPathNum)
     val occurProbabilityMaps = Seq(occurProbabilityMap, occurProbabilityMap1, occurProbabilityMap2)
     val path2Num = basePathGroup.zip(basePathNum)
-    generateSingleFile(outputFile, path2Num, occurProbabilityMaps, startDay, endDay, randomBase = 10000)
+    if(verify){
+      generateSingleFile(outputFile, path2Num, occurProbabilityMaps, startDay, endDay, randomBase = 10000, verify = true)
+    }else {
+      generateSingleFile(outputFile, path2Num, occurProbabilityMaps, startDay, endDay, randomBase = 10000, verify = false)
+    }
+  }
+
+  def main(args: Array[String]): Unit = {
+    if (args.length < 7) {
+      System.err.println("please specify <startDat eg. 20190101> <endDay eg. 20190131> <NamePathNumber eg: 100> <AgePathNumber eg: 100> <genderPathNumber eg: 100> <outPutFile eg: train-zhang.txt> <train: 0 predict_verify:1>")
+      System.exit(-1)
+    }
+    if (args(6) == "0") {
+      generateSet(args.take(6), verify = false)
+    } else {
+      generateSet(args.take(6), verify = true)
+    }
   }
 
 
