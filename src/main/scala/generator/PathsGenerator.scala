@@ -26,9 +26,13 @@ object OccurProbability {
 }
 
 object BaseJsonPath {
-  val namePath = "name"
-  val agePath = "age"
-  val genderPath = "person.gender"
+//  val namePath = "name"
+//  val agePath = "age"
+//  val genderPath = "person.gender"
+  val namePath = "id"
+  val agePath = "name"
+  val genderPath = "age"
+  val separator = "^^"
   //for random
   val randomBase = 10000
 }

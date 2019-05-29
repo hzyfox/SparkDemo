@@ -1,6 +1,7 @@
 package generator
 
 import java.io.{BufferedWriter, FileWriter}
+import BaseJsonPath.separator
 
 import scala.collection.mutable.ListBuffer
 
@@ -12,9 +13,9 @@ object WriteFile {
     for (buffer <- container) {
       for (row <- buffer) {
         stringBuilder.append(row._1)
-        stringBuilder.append(" ")
+        stringBuilder.append(separator)
         stringBuilder.append(row._2)
-        stringBuilder.append(" ")
+        stringBuilder.append(separator)
         stringBuilder.append(row._3)
         writer.write(stringBuilder.toString())
         writer.newLine()
