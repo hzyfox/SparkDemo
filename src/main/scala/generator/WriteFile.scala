@@ -29,7 +29,7 @@ object WriteFile {
     val stringBuilder = new StringBuilder
     val stringBuilder0 = new StringBuilder
     val writer = new BufferedWriter(new FileWriter(fileName, append))
-    val verifyWriter = new BufferedWriter(new FileWriter(fileName + ".verify", append))
+    val verifyWriter = new BufferedWriter(new FileWriter(fileName + "-verify", append))
     for (buffer <- container) {
       for (row <- buffer) {
         if (row._3 == endDay) {
