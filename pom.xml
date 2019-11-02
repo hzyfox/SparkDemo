@@ -8,7 +8,7 @@
     <artifactId>SparkDemo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <spark.version>2.3.0</spark.version>
+        <spark.version>2.4.4</spark.version>
         <scopt.version>3.7.0</scopt.version>
         <webgraph.version>3.6.1</webgraph.version>
     </properties>
